@@ -3,3 +3,4 @@ ee
 geemap
 folium
 branca
+streamlit_folium
