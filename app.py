@@ -108,7 +108,7 @@ def date_input_proc(input_date, time_range):
 # Main function to run the Streamlit app
 def main():
     # initiate gee 
-    ee_authenticate(token_name="4/1AfJohXlhOMqeLZ65YkI8-Q24G1gkZmM3PniL3D8D12qyXYmR4-SpNQ1Lhmc")
+    ee_authenticate(token_name="EARTHENGINE_TOKEN")
 
     #### User input section - START
     # columns for input - map
