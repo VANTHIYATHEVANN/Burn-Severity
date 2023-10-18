@@ -1,4 +1,5 @@
-pip install streamlit 
-pip install ee
-pip install geemap
-pip install folium
+streamlit 
+ee
+geemap
+folium
+branca
