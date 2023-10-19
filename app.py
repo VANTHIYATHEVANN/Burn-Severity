@@ -218,8 +218,29 @@ def main():
             pre_fire_NBR = get_NBR(pre_fire_tci)
             post_fire_NBR = get_NBR(post_fire_tci)
 
+            # NBR visual parameters (applies to both pre/post fire images as greyscale)
+            NBR_params = {
+            'min': -1,
+            'max': 1,
+            'palette': ['black', 'white'],
+            }
+
             # Delta NBR (dNBR)
             dNBR = pre_fire_NBR.subtract(post_fire_NBR)
+
+            # dNBR isual parameters for greyscale styling
+            dNBR_params = {
+            'min': -0.12,
+            'max': 0.82,
+            'palette': ['black', 'white']
+            }
+
+            # dNBR Color Ramp styling
+            dNBR_cr_params = {
+            'min': -0.12,
+            'max': 0.82,
+            'palette': ['#1c742c', '#2aae29', '#a1d574', '#f8ebb0', '#f7a769', '#e86c4e', '#902cd6']
+            }
 
             # ########## ANALYSIS RESULTS CLASSIFICATION
             # Masking satellite images over the water to show only land
@@ -240,12 +261,41 @@ def main():
                 .where(dNBR.gte(0.270).And(dNBR.lt(0.439)), 5) \
                 .where(dNBR.gte(0.440).And(dNBR.lt(0.659)), 6) \
                 .where(dNBR.gte(0.660).And(dNBR.lte(1.300)), 7) \
+                
+            # Storing the classes with a different variable with the same intent
+            # as to no be affected by the necessary changes imposed on the dNBR_classified variable later
+            dNBR_classes = dNBR_classified
 
             # Classified dNBR visual parameters
             dNBR_classified_params = {
             'min': 1,
             'max': 7,
             'palette': ['#1c742c', '#2aae29', '#a1d574', '#f8ebb0', '#f7a769', '#e86c4e', '#902cd6']
+            }
+
+            # Convert the zones of the thresholded burn areas to vectors.
+            vectors = dNBR_classified.addBands(dNBR_classified).reduceToVectors(
+            **{
+            'geometry': geometry_aoi,
+            'crs': dNBR_classified.projection(),
+            'scale': 10,
+            'geometryType': 'polygon',
+            'eightConnected': False,
+            'labelProperty': 'zone',
+            'reducer': ee.Reducer.mean()
+            })
+            
+            # Burn scar based on converted rasters to vectors> Is displayed as its own layer
+            burn_scar = ee.Image(0).updateMask(0).paint(vectors, '000000', 2)
+
+            #################### Custom Visual Displays ####################
+            dem = ee.Image('CGIAR/SRTM90_V4').clip(geometry_aoi)
+            contours = geemap.create_contours(dem, 0, 905, 25, region=geometry_aoi)
+            contours_params = {
+            'min': 0,
+            'max': 1000,
+            'palette': ['#440044', '#00FFFF', '#00FFFF', '#00FFFF'],
+            'opacity': 0.3
             }
 
             #### Satellite imagery Processing Section - END
@@ -255,11 +305,26 @@ def main():
             if initial_date == updated_date:
                 m.add_ee_layer(post_fire_tci, tci_params, 'Satellite Imagery')
             else:
+                ##### TCI
                 m.add_ee_layer(pre_fire_tci, tci_params, f'Pre-Fire Satellite Imagery: {initial_date}')
                 m.add_ee_layer(post_fire_tci, tci_params, f'Post-Fire Satellite Imagery: {updated_date}')
 
+                ##### NBR
+                m.add_ee_layer(pre_fire_NBR, NBR_params, 'Pre-Fire NBR')
+                m.add_ee_layer(post_fire_NBR, NBR_params, 'Post-Fire NBR')
+
+                ##### Delta NBR
+                m.add_ee_layer(dNBR, dNBR_params, 'dNBR')
+                m.add_ee_layer(dNBR, dNBR_cr_params, 'dNBR - Burn Severity')
                 m.add_ee_layer(dNBR_classified, dNBR_classified_params, 'dNBR Classes')
 
+                ##### Burn Scar
+                m.add_ee_layer(burn_scar, {'palette': '#87043b'}, 'Burn Scar')
+
+                ##### Contours
+                m.add_ee_layer(contours, contours_params, 'Contour lines')
+
+                ##### NDWI
                 m.add_ee_layer(pre_ndwi, ndwi_params, f'NDWI: {initial_date}')
 
             #### Layers section - END
