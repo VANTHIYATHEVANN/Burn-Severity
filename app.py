@@ -321,7 +321,7 @@ def main():
                 m.add_ee_layer(dNBR_classified, dNBR_classified_params, 'dNBR Classes')
 
                 ##### Burn Scar
-                m.add_ee_layer(burn_scar, {'palette': '#87043b'}, 'Burn Scar')
+                #m.add_ee_layer(burn_scar, {'palette': '#87043b'}, 'Burn Scar')
 
                 ##### Contours
                 m.add_ee_layer(contours, contours_params, 'Contour lines')
