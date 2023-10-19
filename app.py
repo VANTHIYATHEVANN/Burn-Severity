@@ -118,7 +118,7 @@ def main():
         with c2:
         ## Cloud coverage input
             st.info("Cloud Coverage 🌥️")
-            cloud_pixel_percentage = st.slider(label="cloud pixel rate", min_value=5, max_value=100, step=5, value=10 , label_visibility="collapsed")
+            cloud_pixel_percentage = st.slider(label="cloud pixel rate", min_value=5, max_value=100, step=5, value=30 , label_visibility="collapsed")
 
         ## File upload
             # User input GeoJSON file
