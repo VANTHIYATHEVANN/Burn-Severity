@@ -289,14 +289,14 @@ def main():
             # burn_scar = ee.Image(0).updateMask(0).paint(vectors, '000000', 2)
 
             #################### Custom Visual Displays ####################
-            dem = ee.Image('CGIAR/SRTM90_V4').clip(geometry_aoi)
-            contours = geemap.create_contours(dem, 0, 905, 25, region=geometry_aoi)
-            contours_params = {
-            'min': 0,
-            'max': 1000,
-            'palette': ['#440044', '#00FFFF', '#00FFFF', '#00FFFF'],
-            'opacity': 0.3
-            }
+            # dem = ee.Image('CGIAR/SRTM90_V4').clip(geometry_aoi)
+            # contours = geemap.create_contours(dem, 0, 905, 25, region=geometry_aoi)
+            # contours_params = {
+            # 'min': 0,
+            # 'max': 1000,
+            # 'palette': ['#440044', '#00FFFF', '#00FFFF', '#00FFFF'],
+            # 'opacity': 0.3
+            # }
 
             #### Satellite imagery Processing Section - END
 
@@ -322,7 +322,7 @@ def main():
                 #m.add_ee_layer(burn_scar, {'palette': '#87043b'}, 'Burn Scar')
 
                 ##### Contours
-                m.add_ee_layer(contours, contours_params, 'Contour lines')
+                # m.add_ee_layer(contours, contours_params, 'Contour lines')
 
                 ##### NDWI
                 m.add_ee_layer(pre_ndwi, ndwi_params, f'NDWI: {initial_date}')
