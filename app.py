@@ -273,22 +273,20 @@ def main():
             'palette': ['#1c742c', '#2aae29', '#a1d574', '#f8ebb0', '#f7a769', '#e86c4e', '#902cd6']
             }
 
-            """
             # Convert the zones of the thresholded burn areas to vectors.
-            vectors = dNBR_classified.addBands(dNBR_classified).reduceToVectors(
-            **{
-            'geometry': geometry_aoi,
-            'crs': dNBR_classified.projection(),
-            'scale': 10,
-            'geometryType': 'polygon',
-            'eightConnected': False,
-            'labelProperty': 'zone',
-            'reducer': ee.Reducer.mean()
-            })
+            #vectors = dNBR_classified.addBands(dNBR_classified).reduceToVectors(
+            # **{
+            # 'geometry': geometry_aoi,
+            # 'crs': dNBR_classified.projection(),
+            # 'scale': 10,
+            # 'geometryType': 'polygon',
+            # 'eightConnected': False,
+            # 'labelProperty': 'zone',
+            # 'reducer': ee.Reducer.mean()
+            # })
             
-            # Burn scar based on converted rasters to vectors> Is displayed as its own layer
-            burn_scar = ee.Image(0).updateMask(0).paint(vectors, '000000', 2)
-            """
+            # # Burn scar based on converted rasters to vectors> Is displayed as its own layer
+            # burn_scar = ee.Image(0).updateMask(0).paint(vectors, '000000', 2)
 
             #################### Custom Visual Displays ####################
             dem = ee.Image('CGIAR/SRTM90_V4').clip(geometry_aoi)
