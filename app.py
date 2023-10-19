@@ -138,7 +138,7 @@ def main():
             col2.success("Post-Fire NBR Date 📅")
             updated_date = col2.date_input("updated", datetime(2023, 7, 27), label_visibility="collapsed")
 
-            time_range = 60
+            time_range = 15
 
             # Process initial date
             str_initial_start_date, str_initial_end_date = date_input_proc(initial_date, time_range)
