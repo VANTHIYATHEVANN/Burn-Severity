@@ -164,6 +164,8 @@ def main():
             # OSM
             b0 = folium.TileLayer('Open Street Map', name="Open Street Map")
             b0.add_to(m)
+            b1 = folium.TileLayer('cartodbdark_matter', name='Dark Matter')
+            b1.add_to(m)
 
             #### Satellite imagery Processing Section - START
             ## Defining and clipping image collections for both dates:
