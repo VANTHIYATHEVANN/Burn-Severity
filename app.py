@@ -210,6 +210,13 @@ def main():
             'palette': ['#00FFFF', '#0000FF']
             }
 
+            # dNBR Color Ramp styling
+            dNBR_cr_params = {
+            'min': -0.12,
+            'max': 0.82,
+            'palette': ['#1c742c', '#2aae29', '#a1d574', '#f8ebb0', '#f7a769', '#e86c4e', '#902cd6']
+            }
+            
             # NBR (Normalized Burn Ratio)
             def get_NBR(image):
                 return image.normalizedDifference(['B8', 'B12'])
