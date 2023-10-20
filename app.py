@@ -44,7 +44,7 @@ folium.Map.add_ee_layer = add_ee_layer
 
 # Defining a function to create and filter a GEE image collection for results
 def satCollection(cloudRate, initialDate, updatedDate, aoi):
-    collection = ee.ImageCollection('COPERNICUS/S2_SR') \
+    collection = ee.ImageCollection('COPERNICUS/S2_SR_HARMONIZED') \
         .filter(ee.Filter.lt("CLOUDY_PIXEL_PERCENTAGE", cloudRate)) \
         .filterDate(initialDate, updatedDate) \
         .filterBounds(aoi)
@@ -118,7 +118,7 @@ def main():
         with c2:
         ## Cloud coverage input
             st.info("Cloud Coverage 🌥️")
-            cloud_pixel_percentage = st.slider(label="cloud pixel rate", min_value=5, max_value=100, step=5, value=75 , label_visibility="collapsed")
+            cloud_pixel_percentage = st.slider(label="cloud pixel rate", min_value=5, max_value=100, step=5, value=25 , label_visibility="collapsed")
 
         ## File upload
             # User input GeoJSON file
