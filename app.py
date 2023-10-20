@@ -250,6 +250,13 @@ def main():
             'palette': ['#1c742c', '#2aae29', '#a1d574', '#f8ebb0', '#f7a769', '#e86c4e', '#902cd6']
             }
 
+            # NBR visual parameters (applies to both pre/post fire images as greyscale)
+            NBR_params = {
+            'min': -1,
+            'max': 1,
+            'palette': ['black', 'white'],
+            }
+            
             #### Satellite imagery Processing Section - END
 
             ### Layers section - START
