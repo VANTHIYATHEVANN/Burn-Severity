@@ -221,6 +221,8 @@ def main():
             # Delta NBR (dNBR)
             dNBR = pre_fire_NBR.subtract(post_fire_NBR)
 
+            
+
             # ########## ANALYSIS RESULTS CLASSIFICATION
             # Masking satellite images over the water to show only land
             def satImageMask(sat_image):
@@ -258,6 +260,13 @@ def main():
                 m.add_ee_layer(pre_fire_tci, tci_params, f'Pre-Fire Satellite Imagery: {initial_date}')
                 m.add_ee_layer(post_fire_tci, tci_params, f'Post-Fire Satellite Imagery: {updated_date}')
 
+                ##### NBR
+                m.add_ee_layer(pre_fire_NBR, NBR_params, 'Pre-Fire NBR')
+                m.add_ee_layer(post_fire_NBR, NBR_params, 'Post-Fire NBR')
+
+                ##### Delta NBR
+                m.add_ee_layer(dNBR, dNBR_params, 'dNBR')
+                m.add_ee_layer(dNBR, dNBR_cr_params, 'dNBR - Burn Severity')
                 m.add_ee_layer(dNBR_classified, dNBR_classified_params, 'dNBR Classes')
 
                 m.add_ee_layer(pre_ndwi, ndwi_params, f'NDWI: {initial_date}')
