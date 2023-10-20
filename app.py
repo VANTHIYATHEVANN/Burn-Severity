@@ -256,6 +256,13 @@ def main():
             'max': 1,
             'palette': ['black', 'white'],
             }
+
+           # dNBR isual parameters for greyscale styling
+            dNBR_params = {
+            'min': -0.12,
+            'max': 0.82,
+            'palette': ['black', 'white']
+            }            
             
             #### Satellite imagery Processing Section - END
 
